@@ -4,6 +4,11 @@ import sys
 import numpy
 import re
 
+from colorama import init
+init()
+
+from colorama import Fore, Back, Style
+
 # Initializes a 6 x 7 matrix of zeroes
 def initializeBoard():
     return numpy.zeros((6,7))
@@ -12,7 +17,11 @@ def initializeBoard():
 def printBoard(board):
     for row in board:
         for element in row:
-            print '%i    ' % element,
+            if element == 1:
+                print(Fore.RED + '0   '),
+                print(Style.RESET_ALL),
+            else:
+                print '%i    ' % element,
         print '\n'
 
 # Randomly picks the first player
@@ -26,7 +35,7 @@ def playerTurn(board):
     if re.match('[1-7]', column):
         insertPiece(board, int(column))
     else:
-        print 'Not a valid spot'
+        print 'Not a column'
         playerTurn(board)
 
 # Computer chooses best place to play
@@ -37,12 +46,14 @@ def computerTurn(board, turn):
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column):
     column -= 1
-    for row in board:
-        rowCounter = 1
+    rowCounter = 1
 
-        print 'made it here'
-        if row[column + 1] == 1:
+    for row in board:
+        print 'Row: %i' % (rowCounter)
+        nextColumn = column + 1
+        if rowCounter < 6 and board[rowCounter][column] == 1:
             row[column] = 1
+            print 'Made it here'
         elif row[column] == 0 and rowCounter == 6:
             row[column] = 1
 
