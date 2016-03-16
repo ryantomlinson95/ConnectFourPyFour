@@ -18,11 +18,11 @@ def printBoard(board):
     for row in board:
         for element in row:
             if element == 1:
-                print(Fore.RED + '0   '),
-                print(Style.RESET_ALL),
+                print(Fore.RED + '0  ', end=" ")
+                print(Style.RESET_ALL, end=" ")
             else:
-                print '%i    ' % element,
-        print '\n'
+                print(int(element), "  ", end=" ")
+        print ('\n')
 
 # Randomly picks the first player
 def chooseFirstPlayer():
@@ -30,17 +30,17 @@ def chooseFirstPlayer():
 
 # Player picks a spot to play
 def playerTurn(board):
-    print 'Your turn!'
+    print ('Your turn!')
     column = input('What\'s your move? ')
     if re.match('[1-7]', column):
         insertPiece(board, int(column))
     else:
-        print 'Not a column'
+        print ('Not a column')
         playerTurn(board)
 
 # Computer chooses best place to play
 def computerTurn(board, turn):
-    print 'Computer is playing'
+    print ('Computer is playing')
 
 
 # Inserts a piece at bottom of specified column
@@ -49,11 +49,9 @@ def insertPiece(board, column):
     rowCounter = 1
 
     for row in board:
-        print 'Row: %i' % (rowCounter)
         nextColumn = column + 1
         if rowCounter < 6 and board[rowCounter][column] == 1:
             row[column] = 1
-            print 'Made it here'
         elif row[column] == 0 and rowCounter == 6:
             row[column] = 1
 
@@ -71,18 +69,18 @@ def game():
     firstPlayer = chooseFirstPlayer()
     while True:
         if firstPlayer == "Computer":
-            print 'Computer turn'
+            print ('Computer turn')
             computerTurn(board, turn)
             turn += 1
-            print 'Your turn'
+            print ('Your turn')
             playerTurn(board)
             turn += 1
 
         elif firstPlayer == "Player":
-            print 'Your turn'
+            print ('Your turn')
             playerTurn(board)
             turn += 1
-            print 'Computer turn'
+            print ('Computer turn')
             computerTurn(board, turn)
             turn += 1
 
