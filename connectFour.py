@@ -34,7 +34,8 @@ def chooseFirstPlayer():
     return ("Player", "Computer") if random.randrange(2) == 1 else ("Computer", "Player")
 
 # Player picks a spot to play
-def playerTurn(board, playerFlag):
+def playerTurn(board):
+    playerFlag = 1
     while True:
         column = input('What\'s your move? ')
         if re.match('[1-7]', column):
@@ -44,7 +45,8 @@ def playerTurn(board, playerFlag):
             print ('Not a column')
 
 # Computer chooses best place to play
-def computerTurn(board, turn, computerFlag):
+def computerTurn(board, turn):
+    computerFlag = -1
     print ('Choosing move...')
     time.sleep(1.5)
     column = random.randrange(8)
@@ -74,8 +76,6 @@ def game():
     init() #colorama required init function
     board = initializeBoard()
     turn = 1
-    playerFlag = 1
-    computerFlag = -1
 
     # Pick first player and begin loop.
     # The player who played first will always
@@ -88,9 +88,9 @@ def game():
         printBoard(board)
 
         if firstPlayer == "Computer":
-            computerTurn(board, turn, computerFlag)
+            computerTurn(board, turn)
         else:
-            playerTurn(board, playerFlag)
+            playerTurn(board)
 
         turn += 1
 
@@ -99,9 +99,9 @@ def game():
         printBoard(board)
 
         if firstPlayer == "Computer":
-            playerTurn(board, playerFlag)
+            playerTurn(board)
         else:
-            computerTurn(board, turn, computerFlag)
+            computerTurn(board, turn)
 
         turn += 1
 
