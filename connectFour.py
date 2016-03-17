@@ -35,50 +35,36 @@ def chooseFirstPlayer():
     return ("Player", "Computer") if random.randrange(2) == 1 else ("Computer", "Player")
 
 # Player picks a spot to play
-def playerTurn(board):
+def playerTurn(board, playerFlag):
     while True:
         column = input('What\'s your move? ')
         if re.match('[1-7]', column):
-            insertPlayerPiece(board, int(column))
+            insertPiece(board, int(column), playerFlag)
             break
         else:
             print ('Not a column')
 
 # Computer chooses best place to play
-def computerTurn(board, turn):
+def computerTurn(board, turn, computerFlag):
     print ('Choosing move...')
     time.sleep(1.5)
     column = random.randrange(8)
     while board[0][int(column) - 1] == 1 or board[0][int(column) - 1] == -1:
         column = random.randrange(8)
 
-    insertComputerPiece(board, int(column))
+    insertPiece(board, int(column), computerFlag)
 
 # Inserts a piece at bottom of specified column
-def insertComputerPiece(board, column):
+def insertPiece(board, column, flag):
     column -= 1
     rowCounter = 1
 
     for row in board:
         nextColumn = column + 1
         if rowCounter < 6 and board[rowCounter][column] == 1:
-            row[column] = -1
+            row[column] = flag 
         elif row[column] == 0 and rowCounter == 6:
-            row[column] = -1
-
-        rowCounter += 1
-
-# Inserts a piece at bottom of specified column
-def insertPlayerPiece(board, column):
-    column -= 1
-    rowCounter = 1
-
-    for row in board:
-        nextColumn = column + 1
-        if rowCounter < 6 and board[rowCounter][column] == 1:
-            row[column] = 1
-        elif row[column] == 0 and rowCounter == 6:
-            row[column] = 1
+            row[column] = flag
 
         rowCounter += 1
 
@@ -88,6 +74,8 @@ def game():
     init() #colorama required init function
     board = initializeBoard()
     turn = 1
+    playerFlag = 1
+    computerFlag = -1
 
     # Pick first player and begin loop.
     # The player who played first will always
@@ -100,9 +88,9 @@ def game():
         printBoard(board)
 
         if firstPlayer == "Computer":
-            computerTurn(board, turn)
+            computerTurn(board, turn, computerFlag)
         else:
-            playerTurn(board)
+            playerTurn(board, playerFlag)
 
         turn += 1
 
@@ -111,9 +99,9 @@ def game():
         printBoard(board)
 
         if firstPlayer == "Computer":
-            playerTurn(board)
+            playerTurn(board, playerFlag)
         else:
-            computerTurn(board, turn)
+            computerTurn(board, turn, computerFlag)
 
         turn += 1
 
