@@ -52,8 +52,6 @@ def computerTurn(board, turn, computerFlag):
     while board[0][int(column) - 1] == 1 or board[0][int(column) - 1] == -1:
         column = random.randrange(8)
 
-    insertPiece(board, int(column), computerFlag)
-
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
     column -= 1
