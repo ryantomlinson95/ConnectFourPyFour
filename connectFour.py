@@ -29,8 +29,6 @@ def printBoard(board):
         print ('')
     print("-----------------------------")
 
-#comment
-
 # Randomly picks the first player
 def chooseFirstPlayer():
     return ("Player", "Computer") if random.randrange(2) == 1 else ("Computer", "Player")
@@ -50,10 +48,10 @@ def computerTurn(board, turn, computerFlag):
     print ('Choosing move...')
     time.sleep(1.5)
     column = random.randrange(8)
-    while board[0][int(column) - 1] == 1 or board[0][int(column) - 1] == -1:
+    while board[0][column - 1] == 1 or board[0][column - 1] == -1:
         column = random.randrange(8)
 
-    insertPiece(board, int(column), computerFlag)
+    insertPiece(board, column, computerFlag)
 
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
@@ -84,7 +82,7 @@ def game():
     # play first at the beginning of each round.
     firstPlayer, secondPlayer = chooseFirstPlayer()
     while True:
-        
+
         os.system("clear")
         print(firstPlayer + "'s turn")
         printBoard(board)
