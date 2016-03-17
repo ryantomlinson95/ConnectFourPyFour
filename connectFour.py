@@ -10,11 +10,21 @@ from colorama import Fore, Back, Style
 def initializeBoard():
     return numpy.zeros((6,7))
 
+def printGameTitle():
+    print(" _____                             _       ___")
+    print("/  __ \                           | |     /   |")
+    print("| /  \/ ___  _ __  _ __   ___  ___| |_   / /| |")
+    print("| |    / _ \| '_ \| '_ \ / _ \/ __| __| / /_| |")
+    print("| \__/\ (_) | | | | | | |  __/ (__| |_  \___  |")
+    print(" \____/\___/|_| |_|_| |_|\___|\___|\__|     |_/")
+    print(" ")
+
+
 # Prints the game board
 def printBoard(board):
     for row in board:
-        print("-----------------------------")
-        print("|", end="")
+        print("          -----------------------------")
+        print("          |", end="")
         for element in row:
             if element == 1:
                 print(Fore.RED + ' 0 ', end="")
@@ -27,7 +37,12 @@ def printBoard(board):
             else:
                 print("   |", end="")
         print ('')
-    print("-----------------------------")
+    print("          -----------------------------")
+    print("          | |                       | |")
+    print("          | |                       | |")
+    print("          | |                       | |")
+    print("         /___\\                     /___\\")
+    print(" ")
 
 # Randomly picks the first player
 def chooseFirstPlayer():
@@ -87,8 +102,9 @@ def game():
     while True:
 
         os.system("clear")
-        print(firstPlayer + "'s turn")
+        printGameTitle()
         printBoard(board)
+        print(firstPlayer + "'s turn")
 
         if firstPlayer == "Computer":
             computerTurn(board, turn)
@@ -102,8 +118,9 @@ def game():
             break
 
         os.system("clear")
-        print(secondPlayer + "'s turn")
+        printGameTitle()
         printBoard(board)
+        print(secondPlayer + "'s turn")
 
         if firstPlayer == "Computer":
             playerTurn(board)
