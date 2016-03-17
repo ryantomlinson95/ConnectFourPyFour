@@ -48,7 +48,7 @@ def playerTurn(board):
 def computerTurn(board, turn):
     computerFlag = -1
     print ('Choosing move...')
-    time.sleep(1.5)
+    time.sleep(0)
     column = random.randrange(8)
     while board[0][column - 1] == 1 or board[0][column - 1] == -1:
         column = random.randrange(8)
@@ -69,6 +69,9 @@ def insertPiece(board, column, flag):
             break
 
         rowCounter += 1
+
+def checkForTie(numberOfMoves):
+    return True if numberOfMoves == 43 else False
 
 # Main game function
 def game():
@@ -94,6 +97,10 @@ def game():
 
         turn += 1
 
+        if checkForTie(turn) == True:
+            print("Draw!")
+            break
+
         os.system("clear")
         print(secondPlayer + "'s turn")
         printBoard(board)
@@ -104,6 +111,10 @@ def game():
             computerTurn(board, turn)
 
         turn += 1
+        
+        if checkForTie(turn) == True:
+            print("Draw!")
+            break
 
 # Start of the game
 game()
