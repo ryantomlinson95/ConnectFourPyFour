@@ -50,10 +50,10 @@ def computerTurn(board, turn, computerFlag):
     print ('Choosing move...')
     time.sleep(1.5)
     column = random.randrange(8)
-    while board[0][int(column) - 1] == 1 or board[0][int(column) - 1] == -1:
+    while board[0][column - 1] == 1 or board[0][column - 1] == -1:
         column = random.randrange(8)
 
-    insertPiece(board, int(column), computerFlag)
+    insertPiece(board, column, computerFlag)
 
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
