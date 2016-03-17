@@ -53,17 +53,20 @@ def computerTurn(board, turn, computerFlag):
     while board[0][int(column) - 1] == 1 or board[0][int(column) - 1] == -1:
         column = random.randrange(8)
 
+    insertPiece(board, int(column), computerFlag)
+
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
     column -= 1
     rowCounter = 1
 
     for row in board:
-        nextColumn = column + 1
-        if rowCounter < 6 and board[rowCounter][column] == 1:
-            row[column] = flag 
+        if rowCounter < 6 and (board[rowCounter][column] == 1 or board[rowCounter][column] == -1):
+            row[column] = flag
+            break
         elif row[column] == 0 and rowCounter == 6:
             row[column] = flag
+            break
 
         rowCounter += 1
 
