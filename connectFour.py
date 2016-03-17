@@ -61,10 +61,12 @@ def insertComputerPiece(board, column):
 
     for row in board:
         nextColumn = column + 1
-        if rowCounter < 6 and board[rowCounter][column] == 1:
+        if rowCounter < 6 and (board[rowCounter][column] == 1 or board[rowCounter][column] == -1):
             row[column] = -1
+            break
         elif row[column] == 0 and rowCounter == 6:
             row[column] = -1
+            break
 
         rowCounter += 1
 
@@ -75,10 +77,12 @@ def insertPlayerPiece(board, column):
 
     for row in board:
         nextColumn = column + 1
-        if rowCounter < 6 and board[rowCounter][column] == 1:
+        if rowCounter < 6 and (board[rowCounter][column] == 1 or board[rowCounter][column] == -1):
             row[column] = 1
+            break
         elif row[column] == 0 and rowCounter == 6:
             row[column] = 1
+            break
 
         rowCounter += 1
 
