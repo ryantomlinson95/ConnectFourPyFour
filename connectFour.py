@@ -29,8 +29,6 @@ def printBoard(board):
         print ('')
     print("-----------------------------")
 
-#comment
-
 # Randomly picks the first player
 def chooseFirstPlayer():
     return ("Player", "Computer") if random.randrange(2) == 1 else ("Computer", "Player")
@@ -84,7 +82,7 @@ def game():
     # play first at the beginning of each round.
     firstPlayer, secondPlayer = chooseFirstPlayer()
     while True:
-        
+
         os.system("clear")
         print(firstPlayer + "'s turn")
         printBoard(board)
