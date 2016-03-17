@@ -29,6 +29,7 @@ def printBoard(board):
         print ('')
     print("-----------------------------")
 
+#comment
 
 # Randomly picks the first player
 def chooseFirstPlayer():
