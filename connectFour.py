@@ -10,7 +10,12 @@ from colorama import Fore, Back, Style
 def initializeBoard():
     return numpy.zeros((6,7))
 
+def printScreen(board):
+    printGameTitle()
+    printBoard(board)
+
 def printGameTitle():
+    os.system("clear")
     print(" _____                             _       ___")
     print("/  __ \                           | |     /   |")
     print("| /  \/ ___  _ __  _ __   ___  ___| |_   / /| |")
@@ -23,8 +28,8 @@ def printGameTitle():
 # Prints the game board
 def printBoard(board):
     for row in board:
-        print("          -----------------------------")
-        print("          |", end="")
+        print("         -----------------------------")
+        print("         |", end="")
         for element in row:
             if element == 1:
                 print(Fore.RED + ' 0 ', end="")
@@ -37,11 +42,11 @@ def printBoard(board):
             else:
                 print("   |", end="")
         print ('')
-    print("          -----------------------------")
-    print("          | |                       | |")
-    print("          | |                       | |")
-    print("          | |                       | |")
-    print("         /___\\                     /___\\")
+    print("         -----------------------------")
+    print("         | |                       | |")
+    print("         | |                       | |")
+    print("         | |                       | |")
+    print("        /___\\                     /___\\")
     print(" ")
 
 # Randomly picks the first and second player
@@ -82,21 +87,23 @@ def computerTurn(board, turn):
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
     column -= 1
-    rowCounter = 1 #Used to track the row under the current row
+    nextRowsIndex = 1 #Used to track the row under the current row
 
     #  
     for row in board:
-        if rowCounter < 6 and (board[rowCounter][column] == 1 or board[rowCounter][column] == -1):
+        if nextRowsIndex< 6 and (board[nextRowsIndex][column] == 1 or board[nextRowsIndex][column] == -1):
             row[column] = flag
             break
-        elif rowCounter == 6 and row[column] == 0: # Special case for when on the bottom row
+        elif nextRowsIndex == 6 and row[column] == 0: # Special case for when on the bottom row
             row[column] = flag
             break
 
-        rowCounter += 1
+        nextRowsIndex += 1
 
-def checkForTie(numberOfMoves):
-    return True if numberOfMoves == 43 else False
+# Checks if there is a tie
+def gameIsTie(board):
+    printScreen(board)
+    print("Draw!")
 
 # Main game function
 def game():
@@ -111,36 +118,26 @@ def game():
     firstPlayer, secondPlayer = chooseFirstPlayer()
     while True:
 
-        os.system("clear")
-        printGameTitle()
-        printBoard(board)
+        printScreen(board)
         print(firstPlayer + "'s turn")
 
         if firstPlayer == "Computer":
             computerTurn(board, turn)
         else:
             playerTurn(board)
-
         turn += 1
 
-        if checkForTie(turn) == True:
-            print("Draw!")
-            break
-
-        os.system("clear")
-        printGameTitle()
-        printBoard(board)
+        printScreen(board)
         print(secondPlayer + "'s turn")
 
         if firstPlayer == "Computer":
             playerTurn(board)
         else:
             computerTurn(board, turn)
-
         turn += 1
         
-        if checkForTie(turn) == True:
-            print("Draw!")
+        if turn == 43:
+            gameIsTie(board)
             break
 
 # Start of the game
