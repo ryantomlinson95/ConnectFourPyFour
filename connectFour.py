@@ -4,7 +4,7 @@ import random
 import numpy
 import re
 from colorama import init
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 # Initializes a 6 x 7 matrix of zeroes
 def initializeBoard():
@@ -59,7 +59,7 @@ def playerTurn(board):
 
     while True:
         column = input('What\'s your move? ')
-        if re.match('[1-7]', column) :
+        if re.match('[1-7]', column) and len(column) == 1: #Makes sure it's between 1 and 7 and only one digit
             column = int(column)
 
             if board[0][column - 1] == 1 or board[0][column - 1] == -1: 
