@@ -44,18 +44,26 @@ def printBoard(board):
     print("         /___\\                     /___\\")
     print(" ")
 
-# Randomly picks the first player
+# Randomly picks the first and second player
 def chooseFirstPlayer():
     return ("Player", "Computer") if random.randrange(2) == 1 else ("Computer", "Player")
 
 # Player picks a spot to play
 def playerTurn(board):
     playerFlag = 1
+
     while True:
         column = input('What\'s your move? ')
-        if re.match('[1-7]', column):
-            insertPiece(board, int(column), playerFlag)
+        if re.match('[1-7]', column) :
+            column = int(column)
+
+            if board[0][column - 1] == 1 or board[0][column - 1] == -1: 
+                print("That column is full")
+                continue
+
+            insertPiece(board, column, playerFlag)
             break
+
         else:
             print ('Not a column')
 
@@ -63,7 +71,8 @@ def playerTurn(board):
 def computerTurn(board, turn):
     computerFlag = -1
     print ('Choosing move...')
-    time.sleep(0)
+    time.sleep(0) #Set "thinking" time to 0 while we're testing
+
     column = random.randrange(8)
     while board[0][column - 1] == 1 or board[0][column - 1] == -1:
         column = random.randrange(8)
@@ -73,13 +82,14 @@ def computerTurn(board, turn):
 # Inserts a piece at bottom of specified column
 def insertPiece(board, column, flag):
     column -= 1
-    rowCounter = 1
+    rowCounter = 1 #Used to track the row under the current row
 
+    #  
     for row in board:
         if rowCounter < 6 and (board[rowCounter][column] == 1 or board[rowCounter][column] == -1):
             row[column] = flag
             break
-        elif row[column] == 0 and rowCounter == 6:
+        elif rowCounter == 6 and row[column] == 0: # Special case for when on the bottom row
             row[column] = flag
             break
 
